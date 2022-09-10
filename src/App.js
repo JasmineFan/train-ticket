@@ -1,33 +1,33 @@
 
-import React, { Component, memo} from 'react'
-
-const NewChild = memo(function Child (props) {
-    return <div>{props.person.age}</div>
-})
-
-class App extends Component {
+import React, { Component, useState} from 'react'
+class AppOld extends Component {
   state={
-    count:1,
-    person:{
-      age:1
-    }
+    count:0
   }
-  callback = ()=>{}
   render() {
-    const {person ,count}= this.state
+    const {count}= this.state
     return (
       <div>
         <button 
           onClick={()=>{
-            person.age++;
             this.setState({
-              count
+              count:count+1
             })
-            }}>test</button>
-       <NewChild person={person} callback={this.callback}/>
+            }}>Click{count}</button>
       </div>
     )
   }
 }
-
+function App(){
+  const [count, setCount] = useState(0)
+  const [name, setName] = useState('aaa')
+  return (
+    <div>
+        <button 
+          onClick={()=>{setCount(count+1)}}>
+            Click{count} , name {name}
+          </button>
+      </div>
+  )
+}
 export default App;
