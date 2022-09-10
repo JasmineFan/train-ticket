@@ -1,25 +1,30 @@
 
-import React, { Component, lazy, Suspense } from 'react'
-const About = lazy(() => import('./About.js'))
+import React, { Component, memo} from 'react'
+
+const NewChild = memo(function Child (props) {
+    return <div>{props.person.age}</div>
+})
 
 class App extends Component {
-  state = {
-    hasError: false
-  }
-  static getDerivedStateFromError(){
-    return {
-      hasError:true
+  state={
+    count:1,
+    person:{
+      age:1
     }
   }
+  callback = ()=>{}
   render() {
-    if(this.state.hasError) {
-      return <div>error</div>
-    }
+    const {person ,count}= this.state
     return (
       <div>
-        <Suspense fallback={<div>loading</div>}>
-          <About />
-        </Suspense>
+        <button 
+          onClick={()=>{
+            person.age++;
+            this.setState({
+              count
+            })
+            }}>test</button>
+       <NewChild person={person} callback={this.callback}/>
       </div>
     )
   }
