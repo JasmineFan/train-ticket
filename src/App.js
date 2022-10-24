@@ -2,7 +2,7 @@ import React, { Component, useState, useMemo, memo, useCallback, useRef, PureCom
 import './App.css'
 import { createAdd, createRemove, createSet, createToggle } from './action'
 import reducer from './reducers'
-let idSeq = Date.now()
+
 
 //貌似是redux 源码类似
 
@@ -31,11 +31,7 @@ function Control(props) {
     if (newText.length === 0) {
       return;
     }
-    addTodo({
-      id: ++idSeq,
-      text: newText,
-      complete: false
-    })
+    addTodo(newText)
     inputRef.current.value = ''
   }
   return (
@@ -93,10 +89,21 @@ function Todos(props) {
 }
 
 const LS_KEY = '_$todo'
+let store = {
+  todos:[],
+  incrementCount:0
+}
 
 function TodoList() {
   const [todos, setTodos] = useState([])
   const [incrementCount, setIncrementCount] = useState(0)
+
+  useEffect(()=>{
+    Object.assign(store, {
+      todos,
+      incrementCount
+    })
+  },[todos, incrementCount])
 
   
   // function reducer(state, action) {
@@ -142,15 +149,15 @@ function TodoList() {
  
 
   const dispatch = (action) => {
-    const state = {
-      todos,
-      incrementCount
-    }
     const setters = {
       todos: setTodos,
       incrementCount: setIncrementCount
     }
-    const newState = reducer(state, action)
+    if('function'===typeof action){
+      action(dispatch,()=>store)
+      return
+    }
+    const newState = reducer(store, action)
     for (let key in newState) {
       setters[key](newState[key])
     }
