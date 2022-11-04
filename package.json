@@ -43,7 +43,7 @@
     "postcss-loader": "3.0.0",
     "postcss-preset-env": "6.5.0",
     "postcss-safe-parser": "4.0.1",
-    "prop-types": "^15.7.2",
+    "prop-types": "^15.8.1",
     "react": "^16.8.3",
     "react-app-polyfill": "^0.2.1",
     "react-dev-utils": "^7.0.3",
@@ -62,7 +62,7 @@
     "webpack-manifest-plugin": "2.0.4",
     "workbox-webpack-plugin": "3.6.3"
   },
-  "proxy": "http://39.96.69.24",
+  "proxy": "http://localhost:5000",
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
