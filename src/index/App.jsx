@@ -6,7 +6,7 @@ import DepartDate from './DepartDate'
 import HighSpeed from './HighSpeed'
 import Journey from './Journey'
 import Submit from './Submit'
-import { exchangeFromTo, showCitySelector, hideCitySelector, fetchCityData } from './actions'
+import { exchangeFromTo, showCitySelector, hideCitySelector, fetchCityData, setSelectedCity } from './actions'
 import { bindActionCreators } from 'redux'
 import CitySelector from '../common/CitySelector'
 
@@ -33,7 +33,8 @@ function App(props) {
     const CitySelectorCbs = useMemo(()=>{
         return bindActionCreators({
             onBack: hideCitySelector,
-            fetchCityData
+            fetchCityData,
+            onSelect: setSelectedCity
         }, dispatch)
     },[])
 
